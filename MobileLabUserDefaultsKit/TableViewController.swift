@@ -14,10 +14,11 @@ private let elementArrayKey = "ELEMENT_ARRAY_KEY"
 
 
 // Data element for table row.
-// Note the "Codable" protocal
+// Note the "Codable" protocol
 struct Element: Codable {
-    var date: String
-    var message: String
+    let date: String
+    let message: String
+    let imageURL: URL?
 }
 
 
@@ -87,6 +88,24 @@ class TableViewController: UITableViewController {
         cell.dateLabel.text = element.date
         cell.messageLabel.text = element.message
 
+        // Unwrap element.imageURL optional.
+        if let imageURL = element.imageURL {
+
+            // Need to wrap try block for getting data element.
+            do {
+                // Convert imageURL to data.
+                let data = try Data(contentsOf: imageURL)
+
+                // Convert data into UIImage.
+                let image = UIImage(data: data)
+
+                // Set cell imageView with image.
+                cell.mainImageView.image = image
+            } catch {
+                print("Error loading imageURL", error)
+            }
+        }
+        
         return cell
     }
 }
