@@ -14,7 +14,7 @@ class ActionViewController: UIViewController, UINavigationControllerDelegate, UI
     @IBOutlet weak var messageTextField: UITextField!
     @IBOutlet weak var selectedImageView: UIImageView!
     
-    var selectedImageURL: URL?
+    var selectedImageName: String?
     
     // Callback method to be defined in parent view controller.
     var didSaveElement: ((_ element: Element) -> ())?
@@ -44,7 +44,7 @@ class ActionViewController: UIViewController, UINavigationControllerDelegate, UI
         // Set and pass back data element.
         let element = Element(date: dateString,
                               message: messageTextField.text ?? "",
-                              imageURL: self.selectedImageURL)
+                              imageName: self.selectedImageName ?? "default-image")
         didSaveElement?(element)
         
         self.dismiss(animated: true, completion: nil)
@@ -64,17 +64,38 @@ class ActionViewController: UIViewController, UINavigationControllerDelegate, UI
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
 
-        // Get image and set to image view.
-        let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        self.selectedImageView.image = image
+        // The info dictionary may contain multiple representations of the image. You want to use the original.
+        guard let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
 
-        // Save selected image URL.
-        self.selectedImageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL
+        // Set photoImageView to display the selected image
+        self.selectedImageView.image = selectedImage
         
+        // save image to FileManager
+        // use hashValue of selectedImage as imageName
+        saveImage(image: selectedImage, imageName: String(selectedImage.hashValue))
+
         // Dismiss image picker after making selection.
         picker.dismiss(animated: true, completion: nil)
     }
     
+    func saveImage(image: UIImage, imageName: String) {
+        // create an instance of the FileManager
+        let fileManager = FileManager.default
+        
+        // get the file system image path
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        
+        // get the jpeg data of this image
+        let data = image.jpegData(compressionQuality: 0.8)
+        
+        // Save the image name.
+        selectedImageName = imageName
+        
+        // store the image in document directory
+        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+    }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Dismisses keyboard when done is pressed.

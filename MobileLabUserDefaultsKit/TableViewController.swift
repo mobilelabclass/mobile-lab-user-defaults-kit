@@ -18,7 +18,7 @@ private let elementArrayKey = "ELEMENT_ARRAY_KEY"
 struct Element: Codable {
     let date: String
     let message: String
-    let imageURL: URL?
+    let imageName: String
 }
 
 
@@ -88,24 +88,27 @@ class TableViewController: UITableViewController {
         cell.dateLabel.text = element.date
         cell.messageLabel.text = element.message
 
-        // Unwrap element.imageURL optional.
-        if let imageURL = element.imageURL {
-
-            // Need to wrap try block for getting data element.
-            do {
-                // Convert imageURL to data.
-                let data = try Data(contentsOf: imageURL)
-
-                // Convert data into UIImage.
-                let image = UIImage(data: data)
-
-                // Set cell imageView with image.
-                cell.mainImageView.image = image
-            } catch {
-                print("Error loading imageURL", error)
-            }
-        }
+        // Retrieve image and set to cell imageView.
+        let imagePath = getImage(imageName: element.imageName)
+        cell.mainImageView.image = UIImage(contentsOfFile: imagePath)
         
         return cell
+    }
+    
+    
+    // MARK: Helper functions
+    // handle image fetching
+    func getImage(imageName: String) -> String {
+        // create instance of FileManager
+        let fileManager = FileManager.default
+        
+        // get the file system image path and return it
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        
+        if (fileManager.fileExists(atPath: imagePath)) {
+            return imagePath
+        } else {
+            return "default"
+        }
     }
 }
