@@ -51,12 +51,22 @@ class ActionViewController: UIViewController, UINavigationControllerDelegate, UI
     }
     
 
-    @IBAction func handleGetImageButton(_ sender: UIButton) {
+    @IBAction func handleGetImageFromLibrary(_ sender: UIButton) {
         // Create and present image picker using photo library.
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate   = self
             imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+
+    @IBAction func handleGetImageFromCamera(_ sender: UIButton) {
+        // Create and present image picker using photo library.
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate   = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             self.present(imagePicker, animated: true, completion: nil)
         }
     }

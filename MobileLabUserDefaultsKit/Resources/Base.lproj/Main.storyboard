@@ -131,13 +131,26 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9e-aE-8Hw">
-                                <rect key="frame" x="152" y="319" width="71" height="30"/>
+                                <rect key="frame" x="225" y="319" width="48" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="xd0-YS-Eqa"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="48" id="ZDN-7s-cdN"/>
+                                    <constraint firstAttribute="height" constant="30" id="fVO-Ua-Yvp"/>
                                 </constraints>
-                                <state key="normal" title="Get Image"/>
+                                <state key="normal" title="Library"/>
                                 <connections>
-                                    <action selector="handleGetImageButton:" destination="5L8-BJ-4NC" eventType="touchUpInside" id="p2C-8S-EgK"/>
+                                    <action selector="handleGetImageFromLibrary:" destination="5L8-BJ-4NC" eventType="touchUpInside" id="Ofy-nw-Nnm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whs-3L-Orj">
+                                <rect key="frame" x="101" y="319" width="54" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="XZZ-3S-UNA"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="o7d-JU-Pze"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="pZK-PB-9Um"/>
+                                </constraints>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <action selector="handleGetImageFromCamera:" destination="5L8-BJ-4NC" eventType="touchUpInside" id="Mun-cc-fkM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -146,15 +159,18 @@
                             <constraint firstItem="NS4-bu-Pct" firstAttribute="trailing" secondItem="MDi-WL-Lfh" secondAttribute="trailing" constant="16" id="1CS-lz-VRA"/>
                             <constraint firstItem="MDi-WL-Lfh" firstAttribute="leading" secondItem="NS4-bu-Pct" secondAttribute="leading" constant="16" id="7DJ-fQ-ywi"/>
                             <constraint firstItem="Td5-bz-pcf" firstAttribute="centerX" secondItem="LnS-xi-9fC" secondAttribute="centerX" id="Ec4-GC-noc"/>
-                            <constraint firstItem="c9e-aE-8Hw" firstAttribute="top" secondItem="Td5-bz-pcf" secondAttribute="bottom" constant="8" id="HJH-Np-6av"/>
-                            <constraint firstItem="c9e-aE-8Hw" firstAttribute="centerX" secondItem="LnS-xi-9fC" secondAttribute="centerX" id="Imb-4w-DkO"/>
                             <constraint firstItem="uJZ-gU-yiB" firstAttribute="top" secondItem="MDi-WL-Lfh" secondAttribute="bottom" constant="243" id="IyM-ho-1m6"/>
                             <constraint firstItem="Td5-bz-pcf" firstAttribute="top" secondItem="MDi-WL-Lfh" secondAttribute="bottom" constant="24" id="LMB-nr-8wj"/>
                             <constraint firstItem="T96-FO-ONx" firstAttribute="top" secondItem="Td5-bz-pcf" secondAttribute="bottom" constant="99" id="LWD-bz-4KZ"/>
                             <constraint firstItem="MDi-WL-Lfh" firstAttribute="top" secondItem="NS4-bu-Pct" secondAttribute="top" constant="117" id="Msn-k1-Cuf"/>
                             <constraint firstAttribute="trailing" secondItem="uJZ-gU-yiB" secondAttribute="trailing" constant="77" id="Ol9-aV-ihw"/>
+                            <constraint firstItem="c9e-aE-8Hw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Whs-3L-Orj" secondAttribute="trailing" constant="8" symbolic="YES" id="VaW-jx-vuW"/>
                             <constraint firstItem="uJZ-gU-yiB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="T96-FO-ONx" secondAttribute="trailing" constant="8" symbolic="YES" id="dJz-qk-B8h"/>
                             <constraint firstItem="T96-FO-ONx" firstAttribute="leading" secondItem="NS4-bu-Pct" secondAttribute="leading" constant="87" id="dcf-Rq-EC3"/>
+                            <constraint firstItem="Whs-3L-Orj" firstAttribute="top" secondItem="Td5-bz-pcf" secondAttribute="bottom" constant="8" id="flT-Fh-hmZ"/>
+                            <constraint firstItem="NS4-bu-Pct" firstAttribute="trailing" secondItem="c9e-aE-8Hw" secondAttribute="trailing" constant="102" id="nOZ-kT-4kW"/>
+                            <constraint firstItem="c9e-aE-8Hw" firstAttribute="top" secondItem="Td5-bz-pcf" secondAttribute="bottom" constant="8" id="p1j-jW-G8g"/>
+                            <constraint firstItem="Whs-3L-Orj" firstAttribute="leading" secondItem="NS4-bu-Pct" secondAttribute="leading" constant="101" id="uck-ZD-hYE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NS4-bu-Pct"/>
                     </view>
